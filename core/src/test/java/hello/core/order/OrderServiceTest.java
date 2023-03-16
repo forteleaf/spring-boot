@@ -5,6 +5,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import hello.core.AppConfig;
 import hello.core.member.Grade;
 import hello.core.member.Member;
+import hello.core.member.MemberRepository;
 import hello.core.member.MemberService;
 import org.junit.jupiter.api.Test;
 import org.springframework.context.ApplicationContext;
@@ -26,4 +27,10 @@ class OrderServiceTest {
         assertEquals(order.getDiscountPrice(), 1000);
     }
 
+    @Test
+    void filedInjectionTest() {
+        OrderServiceImpl orderService     = ac.getBean("orderService", OrderServiceImpl.class);
+        MemberRepository memberRepository = orderService.getMemberRepository();
+        System.out.println("memberRepository = " + memberRepository);
+    }
 }

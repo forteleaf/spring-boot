@@ -8,20 +8,31 @@ import org.springframework.stereotype.Component;
 
 @Component
 public class OrderServiceImpl implements OrderService {
-	private final MemberRepository memberRepository;
-	private final DiscountPolicy discountPolicy;
 
-	@Autowired
-	public OrderServiceImpl(MemberRepository memberRepository, DiscountPolicy discountPolicy) {
-		this.memberRepository = memberRepository;
-		this.discountPolicy = discountPolicy;
-	}
+    private final MemberRepository memberRepository;
+    private final DiscountPolicy   discountPolicy;
 
-	@Override
-	public Order createOrder(Long memberId, String itemName, int itemPrice) {
-		Member member = memberRepository.findById(memberId);
-		int discountPrice = discountPolicy.discount(member, itemPrice);
+    public OrderServiceImpl(MemberRepository memberRepository, DiscountPolicy discountPolicy) {
+        this.memberRepository = memberRepository;
+        this.discountPolicy   = discountPolicy;
+    }
 
-		return new Order(memberId, itemName, itemPrice, discountPrice);
-	}
+    @Autowired
+    public void init(MemberRepository memberRepository, DiscountPolicy discountPolicy) {
+        System.out.println("memberRepository = " + memberRepository);
+        System.out.println("discountPolicy = " + discountPolicy);
+    }
+
+    @Override
+    public Order createOrder(Long memberId, String itemName, int itemPrice) {
+        Member member        = memberRepository.findById(memberId);
+        int    discountPrice = discountPolicy.discount(member, itemPrice);
+
+        return new Order(memberId, itemName, itemPrice, discountPrice);
+    }
+
+    // test
+    public MemberRepository getMemberRepository() {
+        return memberRepository;
+    }
 }
