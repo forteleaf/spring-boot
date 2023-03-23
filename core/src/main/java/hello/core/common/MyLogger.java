@@ -3,12 +3,13 @@ package hello.core.common;
 import jakarta.annotation.PostConstruct;
 import jakarta.annotation.PreDestroy;
 import org.springframework.context.annotation.Scope;
+import org.springframework.context.annotation.ScopedProxyMode;
 import org.springframework.stereotype.Component;
 
 import java.util.UUID;
 
 @Component
-@Scope(value = "request")
+@Scope(value = "request", proxyMode = ScopedProxyMode.TARGET_CLASS) // 가상의 프록시 클래스를 만들어서 주입해줌 (프록시 클래스는 싱글톤이다.)
 public class MyLogger {
     private String uuid;
     private String requestURL;
