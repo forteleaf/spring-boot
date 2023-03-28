@@ -21,6 +21,7 @@ repositories {
     mavenCentral()
 }
 
+ext['tomcat.version']='10.1.4'
 
 dependencies {
 /*
