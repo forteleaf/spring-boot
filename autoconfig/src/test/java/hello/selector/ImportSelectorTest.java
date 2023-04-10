@@ -22,6 +22,7 @@ public class ImportSelectorTest {
 		HelloBean                          bean       = appContext.getBean(HelloBean.class);
 		Assertions.assertThat(bean).isNotNull();
 
+
 	}
 
 	@Configuration
